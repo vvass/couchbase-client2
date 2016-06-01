@@ -20,7 +20,7 @@ object MyApplication extends App {
   import org.reactivecouchbase.CouchbaseRWImplicits.jsObjectToDocumentWriter
 
   val driver = ReactiveCouchbaseDriver()
-  val bucket = driver.bucket("default")
+  val bucket = driver.bucket("campaigns")
 
     // creates a JSON document
   val document = Json.obj(
@@ -36,32 +36,32 @@ object MyApplication extends App {
     case status => println(s"Operation status : ${status.getMessage}")
   }
 
-  // persist the Person instance with the key 'jane-doe', using implicit 'personFmt' for serialization
-  val setInstance = bucket.set[Person]("jane-doe", Person("Jane", "Doe", 42))
-
-  setInstance.onSuccess {
-    case status => println(s"Operation status : ${status.getMessage}")
-  }
-
-  // get the Person instance with the key 'john-doe', using implicit 'personFmt' for deserialization
-  val getDoc = bucket.get[Person]("john-doe").map { opt =>
-    println(opt.map(person => s"Found John : ${person}").getOrElse("Cannot find object with key 'john-doe'"))
-  }
-
-  // delete docs with keys "john-doe" and "jane-doe"
-  val deleteDoc = Future.sequence(Seq(bucket.delete("john-doe"), bucket.delete("jane-doe")))
-
-  deleteDoc.onSuccess {
-    case statuses => println(s"""Operations status : ${statuses.map(_.getMessage).mkString(", ")}""")
-  }
+//  // persist the Person instance with the key 'jane-doe', using implicit 'personFmt' for serialization
+//  val setInstance = bucket.set[Person]("jane-doe", Person("Jane", "Doe", 42))
+//
+//  setInstance.onSuccess {
+//    case status => println(s"Operation status : ${status.getMessage}")
+//  }
+//
+//  // get the Person instance with the key 'john-doe', using implicit 'personFmt' for deserialization
+//  val getDoc = bucket.get[Person]("john-doe").map { opt =>
+//    println(opt.map(person => s"Found John : ${person}").getOrElse("Cannot find object with key 'john-doe'"))
+//  }
+//
+//  // delete docs with keys "john-doe" and "jane-doe"
+//  val deleteDoc = Future.sequence(Seq(bucket.delete("john-doe"), bucket.delete("jane-doe")))
+//
+//  deleteDoc.onSuccess {
+//    case statuses => println(s"""Operations status : ${statuses.map(_.getMessage).mkString(", ")}""")
+//  }
 
   val futureMessage = for {
     _ <- setDoc
-    _ <- setInstance
-    message <- getDoc
-    _ <- deleteDoc
-  } yield message
+//    _ <- setInstance
+//    message <- getDoc
+//    _ <- deleteDoc
+  } yield "Did it"
 
-  futureMessage map { message => println(message) } map { _ => driver.shutdown() }  
+  futureMessage  map { _ => driver.shutdown() }
 
 }
