@@ -1,4 +1,4 @@
-package foo.bar
+package app
 
 import play.api.libs.json._
 import scala.concurrent.{Future, Await, ExecutionContext}
