@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit
 
 case class Person(name: String, surname: String, age: Int)
 
+
+// These are required in order for connection with couchbase to work correctly
 object Utils {
   implicit val personFmt = Json.format[Person]
   implicit val ec = ExecutionContext.Implicits.global
