@@ -11,13 +11,12 @@ lazy val root = (project in file(".")).
   enablePlugins(PlayScala).
   settings(commonSettings: _*).
   settings(
-    name      := "couchbase-client",
+    name      := "couchbase-client-scrbr",
     logLevel  := Level.Info
   )
 
 
 resolvers ++= Seq(
-  "ReactiveCouchbase snapshots" at "https://raw.github.com/ReactiveCouchbase/repository/master/snapshots",
   "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/",
   "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
 )
@@ -26,8 +25,7 @@ libraryDependencies ++= {
   val iospray = "1.3.3"
 
   Seq(
-    "org.reactivecouchbase".%%("reactivecouchbase-play")            % "0.4-SNAPSHOT",
-    // -- metrics and health checks --
+    "com.couchbase.client".%("java-client")                         % "2.2.7",
     "io.dropwizard.metrics".%("metrics-core")                       % "3.1.2",
     // -- package plugin --
     "javax.servlet".%("javax.servlet-api")                          % "3.0.1"         % "provided"

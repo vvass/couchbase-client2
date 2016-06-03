@@ -4,3 +4,4 @@
 
 # Home page
 GET       /test  controllers.BasicController.echo
+GET       /getDoc  controllers.CouchbaseQueryController.getDocument

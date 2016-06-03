@@ -1,25 +1,26 @@
 package controllers
 
-import org.reactivecouchbase.play.{PlayCouchbase, CouchbaseController}
-import play.api.libs.json.Json
-import play.api.mvc.Controller
+import com.couchbase.client.java.CouchbaseCluster
+import datasources.CouchbaseDatasourceObject
+import play.api.mvc.{Action, Controller}
 
 /**
-  * Created by vvass on 6/2/16.
+  * Created by vvass on 6/3/16.
   */
+class CouchbaseQueryController extends Controller{
 
-case class User(name: String, surname: String, email: String)
+
+  /**
+    * The connection to the cluster.
+    */
+  var connection: CouchbaseCluster = CouchbaseDatasourceObject.getInstance()
+
+  def getDocument = Action(parse.anyContent) { request =>
+
+    val results = CouchbaseDatasourceObject.findDoc()
 
 
-object CouchbaseQueryController extends Controller with CouchbaseController{
-
-  implicit val couchbaseExecutionContext = PlayCouchbase.couchbaseExecutor
-  implicit val userReader = Json.reads[User]
-
-  def getUser(key: String) = CouchbaseAction { bucket =>
-    bucket.get[User](key).map { maybeUser =>
-      maybeUser.map(user => Ok(views.html.user(user)).getOrElse(BadRequest(s"Unable to find user with key: $key"))
-    }
+    Ok("Got request [" + request + "] [result: " + results +"]")
   }
 
 }

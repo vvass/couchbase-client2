@@ -1,9 +1,8 @@
 package controllers
 
-import org.reactivecouchbase.play.{CouchbaseController}
 import play.api.mvc.{Action, Controller}
 
-class BasicController extends Controller with CouchbaseController{
+class BasicController extends Controller{
 
   def index = Action {
     Ok("Your new application is ready.")
@@ -12,8 +11,5 @@ class BasicController extends Controller with CouchbaseController{
   def echo = Action(parse.anyContent) { request =>
     Ok("Got request [" + request + "]")
   }
-
-
-
 
 }
