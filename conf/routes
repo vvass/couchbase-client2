@@ -3,4 +3,4 @@
 # ~~~~
 
 # Home page
-GET       /test  controllers.CouchbaseQueryAPI.index
+GET       /test  controllers.BasicController.echo
