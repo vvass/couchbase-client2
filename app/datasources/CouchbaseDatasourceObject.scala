@@ -2,12 +2,14 @@ package datasources
 
 import java.util.concurrent.TimeUnit
 
-import com.couchbase.client.java.view.ViewQuery
+import com.couchbase.client.java.query.{AsyncN1qlQueryResult, N1qlQuery}
+import com.couchbase.client.java.view.{ViewResult, ViewQuery}
 import com.couchbase.client.java.{Bucket, AsyncBucket, CouchbaseCluster}
 import com.google.inject.Singleton
 import exceptions.{ClusterVarIsNull, ClusterCreationException}
 import play.api.libs.json.Json
 import play.api.{Play, Configuration}
+import views.html.helper.select
 
 import scala.collection.mutable.ArrayBuffer
 import java.net.URI
@@ -54,6 +56,15 @@ object CouchbaseDatasourceObject{
     val results  = bucket.get("1")
     println(results.content().toString)
     results
+  }
+
+  def queryDocByString(str: String) = {
+    bucket.query(N1qlQuery.simple("CREATE PRIMARY INDEX ON `campaigns`"))
+    val results = bucket.query(N1qlQuery.simple(s"SELECT * FROM `campaigns` WHERE primary_word = '$str'"))
+    if(results.finalSuccess() && !results.allRows().isEmpty)
+      results.allRows()
+    else
+      "Didnt work"
   }
 
 }

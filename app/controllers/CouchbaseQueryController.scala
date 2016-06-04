@@ -16,8 +16,7 @@ class CouchbaseQueryController extends Controller{
 
   def getDocument = Action(parse.anyContent) { request =>
 
-    val results = CouchbaseDatasourceObject.findDoc()
-
+    val results = CouchbaseDatasourceObject.queryDocByString("Trump")
 
     Ok("Got request [" + request + "] [result: " + results +"]")
   }
