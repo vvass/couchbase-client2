@@ -13,7 +13,6 @@ class CouchbaseQueryController extends Controller{
   /**
     * The connection to the cluster.
     */
-  var connection: CouchbaseCluster = CouchbaseDatasourceObject.getInstance()
 
   def getDocument = Action(parse.anyContent) { request =>
 

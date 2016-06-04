@@ -32,7 +32,4 @@ libraryDependencies ++= {
   )
 }
 
-assemblyJarName in assembly := "couchbase-client.jar"
-
-assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false)
 

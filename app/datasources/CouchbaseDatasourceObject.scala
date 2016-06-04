@@ -2,7 +2,8 @@ package datasources
 
 import java.util.concurrent.TimeUnit
 
-import com.couchbase.client.java.{AsyncBucket, CouchbaseCluster}
+import com.couchbase.client.java.view.ViewQuery
+import com.couchbase.client.java.{Bucket, AsyncBucket, CouchbaseCluster}
 import com.google.inject.Singleton
 import exceptions.{ClusterVarIsNull, ClusterCreationException}
 import play.api.libs.json.Json
@@ -18,15 +19,14 @@ import scala.util.Try
   * Created by vvass on 6/3/16.
   */
 
-@Singleton
 object CouchbaseDatasourceObject{
 
   /**
     * The instance of the client to connect to.
     */
-  var cluster: CouchbaseCluster = null;
+  val cluster: CouchbaseCluster = CouchbaseCluster.create("192.168.99.100")
 
-  var asyncBucket: AsyncBucket = null;
+  val bucket: Bucket = cluster.openBucket("campaigns")
 
   val config: Configuration = play.api.Configuration()
 
@@ -37,19 +37,6 @@ object CouchbaseDatasourceObject{
     val password = config.getString("couchbase.password")
 
     val uris = ArrayBuffer(URI.create("http://" + hostname + ":" + port + "/pools"))
-
-    Try(cluster = CouchbaseCluster.create("192.168.99.100")).getOrElse(throw new ClusterCreationException)
-
-    val bucket = cluster.openBucket("campaigns")
-    asyncBucket = bucket.async()
-  }
-
-  def getInstance(): CouchbaseCluster = {
-    // Create a new cluster if it doesn't exist
-    if(cluster == null){
-      connect()
-    }
-    cluster
   }
 
   def disconnect() = {
@@ -60,11 +47,13 @@ object CouchbaseDatasourceObject{
 
   def closeBucketOnly() = {
     if(cluster == null) (throw new ClusterVarIsNull)
-    asyncBucket.close()
+    bucket.close()
   }
 
   def findDoc() = {
-    val results  = asyncBucket.get("1")
+    val results  = bucket.get("1")
+    println(results.content().toString)
+    results
   }
 
 }
