@@ -38,8 +38,4 @@ WORKDIR /opt/couchbase/
 #clone project
 RUN git clone https://vvass:4bulgaria@github.com/vvass/couchbase-client2.git
 
-#cd into project
-RUN cd couchbase-client2
-
-#run sbt run
-RUN sbt run
+EXPOSE 9000

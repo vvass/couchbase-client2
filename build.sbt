@@ -8,7 +8,7 @@ lazy val commonSettings = Seq(
 )
 
 lazy val root = (project in file(".")).
-  enablePlugins(PlayScala).
+  enablePlugins(PlayScala, UniversalPlugin, DockerPlugin).
   settings(commonSettings: _*).
   settings(
     name      := "couchbase-client-scrbr",
@@ -28,7 +28,8 @@ libraryDependencies ++= {
     "com.couchbase.client".%("java-client")                         % "2.2.7",
     "io.dropwizard.metrics".%("metrics-core")                       % "3.1.2",
     // -- package plugin --
-    "javax.servlet".%("javax.servlet-api")                          % "3.0.1"         % "provided"
+    "javax.servlet".%("javax.servlet-api")                          % "3.0.1"         % "provided",
+    "com.spotify".%("docker-client")                                % "5.0.2"
   )
 }
 
