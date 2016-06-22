@@ -26,8 +26,7 @@ object CouchbaseDatasourceObject{
   /**
     * The instance of the client to connect to.
     */
-//  val cluster: CouchbaseCluster = CouchbaseCluster.create("192.168.99.100")
-  val cluster: CouchbaseCluster = CouchbaseCluster.create("172.17.0.2")
+  val cluster: CouchbaseCluster = CouchbaseCluster.create("192.168.99.100")
 
   val bucket: Bucket = cluster.openBucket("campaigns")
 
