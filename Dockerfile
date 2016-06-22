@@ -37,5 +37,6 @@ WORKDIR /opt/couchbase/
 
 #clone project
 RUN git clone https://vvass:4bulgaria@github.com/vvass/couchbase-client2.git
+WORKDIR /opt/couchbase/couchbase-client2
 
 EXPOSE 9000
