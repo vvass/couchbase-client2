@@ -64,7 +64,7 @@ object CouchbaseDatasourceObject{
     if(results.finalSuccess() && !results.allRows().isEmpty)
       results.allRows()
     else
-      "Didnt work"
+      ""
   }
 
 }

@@ -3,5 +3,5 @@
 # ~~~~
 
 # Home page
-GET       /test  controllers.BasicController.echo
+GET       /index  controllers.BasicController.index
 GET       /getDoc  controllers.CouchbaseQueryController.getDocument
