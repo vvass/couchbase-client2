@@ -5,3 +5,4 @@
 # Home page
 GET       /index  controllers.BasicController.index
 GET       /getDoc  controllers.CouchbaseQueryController.getDocument
+GET       /oldgGetDoc  controllers.CouchbaseQueryController.oldGetDocument

@@ -11,7 +11,7 @@ lazy val root = (project in file(".")).
   enablePlugins(PlayScala, UniversalPlugin, DockerPlugin).
   settings(commonSettings: _*).
   settings(
-    name      := "couchbase-client-scrbr",
+    name      := "couchbase-client2",
     logLevel  := Level.Info
   )
 
