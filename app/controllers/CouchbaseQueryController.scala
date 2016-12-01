@@ -37,7 +37,7 @@ class CouchbaseQueryController extends Controller {
     if (results.isEmpty)
       NoContent
     else
-      Ok("result: " + results)
+      Ok("result: " + results + "\n" + requestList)
   }
 
   def oldGetDocument = Action(parse.anyContent) { request =>
